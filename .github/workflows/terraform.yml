@@ -6,10 +6,9 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-     permissions:
-       contents: read
+     permissions: 
        id-token: write
 
     steps:
