@@ -23,11 +23,10 @@ jobs:
       # Step 3: Install dependencies and build the application
       - name: Install dependencies
         working-directory: .
-        run: npm install
-
-      - name: Build application
-        working-directory: .
-        run: npm run build
+        run: 
+            npm install
+            npm run build
+     
 
       # Step 4: Authenticate with Azure using a Service Principal
       - name: Login to Azure
