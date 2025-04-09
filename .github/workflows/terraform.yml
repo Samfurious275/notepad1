@@ -22,7 +22,7 @@ jobs:
 
       # Step 3: Install dependencies and build the application
       - name: Install dependencies
-        working-directory: ./notepad1/
+        working-directory: .
         run: npm install
 
       - name: Build application
