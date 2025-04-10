@@ -37,3 +37,18 @@ jobs:
       # Apply Terraform
       - name: Terraform Apply
         run: terraform apply -auto-approve 
+
+       # Retrieve Web App Name from Terraform Outputs
+      - name: Get Web App Name
+        id: get_webapp_name
+        run: echo "WEB_APP_NAME=$(terraform output -raw web_app_name)" >> $GITHUB_ENV
+
+      # Deploy Static Files to Azure Web App
+      - name: Deploy Application
+        run: |
+          az webapp up \
+            --name "${{ env.WEB_APP_NAME }}" \
+            --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
+            --plan "${{ secrets.AZURE_APP_SERVICE_PLAN }}" \
+            --html \
+            --src "public"
