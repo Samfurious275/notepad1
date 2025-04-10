@@ -90,7 +90,9 @@ output "frontend_url" {
   value = azurerm_linux_web_app.frontend.default_hostname
 
 }
-
+output "web_app_name" {
+  value = azurerm_linux_web_app.frontend.name
+}
 
 output "mongodb_uri" {
   value = azurerm_cosmosdb_account.cosmosdb.primary_mongodb_connection_string
