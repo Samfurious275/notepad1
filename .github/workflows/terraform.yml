@@ -43,7 +43,7 @@ jobs:
       - name: Deploy Application
         run: |
           az webapp up \
-            --name "notepad-frontend1" \
+            --name notepad-frontend1 \
             --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
             --plan "${{ secrets.AZURE_APP_SERVICE_PLAN }}" \
             --html \
