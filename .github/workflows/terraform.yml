@@ -43,12 +43,7 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
 
-      # Retrieve Web App Name from Terraform Outputs
-      - name: Get Web App Name
-        id: get_webapp_name
-        run: |
-          WEB_APP_NAME=$(terraform output -raw web_app_name | tr -d '\r' | tr -d '\n')
-          echo "WEB_APP_NAME=$WEB_APP_NAME" >> $GITHUB_ENV
+      
 
       # Zip Static Files
       - name: Zip Static Files
@@ -60,7 +55,7 @@ jobs:
       - name: Deploy Application
         run: |
           az webapp deploy \
-            --name "${{ env.WEB_APP_NAME }}" \
+            --name  notepad-frontend1 \
             --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
             --src-path public.zip \
             --type zip
