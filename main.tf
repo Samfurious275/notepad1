@@ -15,13 +15,13 @@ provider "azurerm" {
 
 # Resource Group
 resource "azurerm_resource_group" "rg" {
-  name     = "notepad-app-rg111"
+  name     = "notepad-app-rg1"
   location = "Canada Central"
 }
 
 # Cosmos DB Account
 resource "azurerm_cosmosdb_account" "cosmosdb" {
-  name                = "notepad-cosmosdb111"
+  name                = "notepad-cosmosdb1"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   offer_type          = "Standard"
