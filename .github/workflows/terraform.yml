@@ -54,6 +54,7 @@ jobs:
       - name: Zip Static Files
         run: |
           zip -r public.zip public/
+          
 
       # Deploy Static Files to Azure Web App
       - name: Deploy Application
