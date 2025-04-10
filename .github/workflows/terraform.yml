@@ -1,3 +1,4 @@
+
 name: Terraform Deployment
 
 on:
@@ -32,14 +33,13 @@ jobs:
 
       # Plan Terraform
       - name: Terraform Plan
-        run: terraform plan 
+        run: terraform plan
 
       # Apply Terraform
       - name: Terraform Apply
-        run: terraform apply -auto-approve 
+        run: terraform apply -auto-approve
 
-
-       # Retrieve Web App Name from Terraform Outputs
+      # Retrieve Web App Name from Terraform Outputs
       - name: Get Web App Name
         id: get_webapp_name
         run: |
@@ -54,7 +54,8 @@ jobs:
       # Deploy Static Files to Azure Web App
       - name: Deploy Application
         run: |
-          az webapp deployment source config-zip \
+          az webapp deploy \
             --name "${{ env.WEB_APP_NAME }}" \
             --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
-            --src public.zip
+            --src-path public.zip \
+            --type zip
