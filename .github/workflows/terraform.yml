@@ -39,12 +39,22 @@ jobs:
         run: terraform apply -auto-approve 
 
 
-      # Deploy Static Files to Azure Web Ap
+       # Retrieve Web App Name from Terraform Outputs
+      - name: Get Web App Name
+        id: get_webapp_name
+        run: |
+          WEB_APP_NAME=$(terraform output -raw web_app_name | tr -d '\r' | tr -d '\n')
+          echo "WEB_APP_NAME=$WEB_APP_NAME" >> $GITHUB_ENV
+
+      # Zip Static Files
+      - name: Zip Static Files
+        run: |
+          zip -r public.zip public/
+
+      # Deploy Static Files to Azure Web App
       - name: Deploy Application
         run: |
-          az webapp up \
-            --name notepad-frontend1 \
+          az webapp deployment source config-zip \
+            --name "${{ env.WEB_APP_NAME }}" \
             --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
-            --plan "${{ secrets.AZURE_APP_SERVICE_PLAN }}" \
-            --html \
-            --src "public"
+            --src public.zip
