@@ -43,7 +43,8 @@ jobs:
         id: get_webapp_name
         run: echo "WEB_APP_NAME=$(terraform output -raw web_app_name)" >> $GITHUB_ENV
 
-      # Deploy Static Files to Azure Web App
+
+      # Deploy Static Files to Azure Web Ap
       - name: Deploy Application
         run: |
           az webapp up \
