@@ -1,4 +1,3 @@
-
 name: Terraform Deployment
 
 on:
@@ -18,6 +17,11 @@ jobs:
       # Install Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+
+      # Install Latest Azure CLI
+      - name: Install Latest Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
       # Authenticate with Azure using Service Principal
       - name: Authenticate with Azure
