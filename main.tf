@@ -15,7 +15,7 @@ provider "azurerm" {
 
 # Resource Group
 resource "azurerm_resource_group" "rg" {
-  name     = "notepad-app-rg11"
+  name     = "notepad-app-rg111"
   location = "Canada Central"
 }
 
