@@ -43,6 +43,21 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
 
+      # Zip Static Files
+      - name: Zip Static Files
+        run: |
+         
+          cd public
       
-
+          # Zip the contents of the public folder
+          zip -r ../public.zip .
+      - name: Deploy Application
+        run: |
+          # Use the full path to the ZIP file
+          az webapp deploy \
+            --name notepad-frontend1 \
+            --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
+            --src-path "${{ github.workspace }}/public.zip" \
+            --type zip
+              
       
