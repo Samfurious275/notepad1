@@ -13,7 +13,11 @@ jobs:
       # Checkout code
       - name: Checkout Repository
         uses: actions/checkout@v3
-
+        
+      - name: Update Azure CLI
+        run: |
+          az upgrade --yes
+          
       # Install Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -51,13 +55,13 @@ jobs:
           
       
           # Zip the contents of the public folder
-          zip -r ../public.zip .
+          zip -r public.zip .
       - name: Deploy Application
         run: |
-          # Use the full path to the ZIP file
-          az webapp deployment source config-zip \
+          az webapp deploy \
             --name notepad-frontend1 \
             --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
-            --src "${{ github.workspace }}/public.zip"
+            --src-path "${{ github.workspace }}/public/public.zip" \
+            --type zip
               
       
