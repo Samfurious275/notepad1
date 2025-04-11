@@ -55,7 +55,7 @@ jobs:
         run: |
           # Use the full path to the ZIP file
           az webapp deploy \
-            --name notepad-frontend1 \
+            --name notepad-frontend11 \
             --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
             --src-path "${{ github.workspace }}/public.zip" \
             --type zip
