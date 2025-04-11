@@ -15,13 +15,13 @@ provider "azurerm" {
 
 # Resource Group
 resource "azurerm_resource_group" "rg" {
-  name     = "notepad-app-rg1"
+  name     = "notepad-app-rg11"
   location = "Canada Central"
 }
 
 # Cosmos DB Account
 resource "azurerm_cosmosdb_account" "cosmosdb" {
-  name                = "notepad-cosmosdb1"
+  name                = "notepad-cosmosdb11"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   offer_type          = "Standard"
@@ -41,7 +41,7 @@ resource "azurerm_cosmosdb_account" "cosmosdb" {
 
 # App Service Plan for Backend
 resource "azurerm_app_service_plan" "backend_plan" {
-  name                = "notepad-backend-plan1"
+  name                = "notepad-backend-plan11"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   sku {
@@ -51,7 +51,7 @@ resource "azurerm_app_service_plan" "backend_plan" {
 }
 
 resource "azurerm_app_service" "backend" {
-  name                = "notepad-backend1"
+  name                = "notepad-backend11"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_app_service_plan.backend_plan.id
@@ -69,7 +69,7 @@ resource "azurerm_app_service" "backend" {
 }
 # Create a Web App for the Frontend
 resource "azurerm_linux_web_app" "frontend" {
-  name                = "notepad-frontend1"
+  name                = "notepad-frontend11"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   service_plan_id     = azurerm_app_service_plan.backend_plan.id
