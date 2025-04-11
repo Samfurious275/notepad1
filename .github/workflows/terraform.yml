@@ -9,15 +9,19 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
 
+    env:
+      AZURE_API_VERSION: "2024-03-01" # Use one of the supported versions from the error message
+
     steps:
       # Checkout code
       - name: Checkout Repository
         uses: actions/checkout@v3
         
+      # Update Azure CLI
       - name: Update Azure CLI
         run: |
           az upgrade --yes
-          
+
       # Install Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -26,6 +30,10 @@ jobs:
       - name: Install Latest Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      # Check Azure CLI Version
+      - name: Check Azure CLI Version
+        run: az --version
 
       # Authenticate with Azure using Service Principal
       - name: Authenticate with Azure
@@ -50,18 +58,14 @@ jobs:
       # Zip Static Files
       - name: Zip Static Files
         run: |
-         
           cd public
-          
-      
-          # Zip the contents of the public folder
-          zip -r public.zip .
+          zip -r ../public.zip .
+
+      # Deploy Application
       - name: Deploy Application
         run: |
           az webapp deploy \
             --name notepad-frontend1 \
             --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
-            --src-path "${{ github.workspace }}/public/public.zip" \
+            --src-path public.zip \
             --type zip
-              
-      
