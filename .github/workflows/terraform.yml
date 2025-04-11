@@ -48,6 +48,7 @@ jobs:
         run: |
          
           cd public
+          
       
           # Zip the contents of the public folder
           zip -r ../public.zip .
