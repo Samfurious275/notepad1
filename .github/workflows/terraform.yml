@@ -3,7 +3,7 @@ name: Deploy to Azure Container Apps
 on:
   push:
     branches:
-      - main  # Trigger on push to the main branch
+      - main
 
 jobs:
   build-and-deploy:
@@ -28,7 +28,7 @@ jobs:
       run: |
         az acr login --name ${{ secrets.REGISTRY_NAME }}
 
-    - name: Build and push Docker image to ACR
+    - name: Build and Push Docker Image
       run: |
         IMAGE_NAME="${{ secrets.REGISTRY_NAME }}.azurecr.io/myapp:${{ github.sha }}"
         docker build . -t $IMAGE_NAME
@@ -38,8 +38,6 @@ jobs:
     - name: Deploy to Azure Container Apps
       run: |
         az containerapp update \
-          --name ${{ secrets.CONTAINER_APP_NAME }} \
-          --resource-group ${{ secrets.RESOURCE_GROUP }} \
-          --image ${{ env.IMAGE_NAME }}SOURCE_GROUP }}" \
-            --src-path public.zip \
-            --type zip
+          --name "${{ secrets.CONTAINER_APP_NAME }}" \
+          --resource-group "${{ secrets.RESOURCE_GROUP }}" \
+          --image "${{ env.IMAGE_NAME }}"
